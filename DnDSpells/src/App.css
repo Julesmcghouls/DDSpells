@@ -1,5 +1,5 @@
 body {
-  background-color: #290000;
+  background-color: #8d8282;
 }
 
 .App {
@@ -8,7 +8,7 @@ body {
 }
 
 .loading {
-  color: #f7ce65;
+  color: #f7d171;
 }
 
 input[type="text"] {
@@ -54,7 +54,7 @@ input[type="text"] {
 }
 
 .spell-card .stats strong {
-  color: #030303;
+  color: white;
   text-align: center;
 }
 
