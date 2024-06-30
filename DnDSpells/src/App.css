@@ -1,5 +1,5 @@
 body {
-  background-color: #8d8282;
+  background-color: #290000;
 }
 
 .App {
@@ -8,15 +8,7 @@ body {
 }
 
 .loading {
-  color: #f7d171;
-}
-
-input[type="text"] {
-  margin: 16px 0;
-  padding: 8px;
-  font-size: 1rem;
-  border-radius: 4px;
-  border: 1px solid #ccc;
+  color: #f7ce65;
 }
 
 .spell-list {
@@ -54,7 +46,7 @@ input[type="text"] {
 }
 
 .spell-card .stats strong {
-  color: white;
+  color: #030303;
   text-align: center;
 }
 
