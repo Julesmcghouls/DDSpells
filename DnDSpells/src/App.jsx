@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAllSpells } from "./Api";
 import SpellCard from "./SpellCard";
-import "./styles.css";
+import "./App.css";
 
 export default function App() {
   const [spells, setSpells] = useState([]);
