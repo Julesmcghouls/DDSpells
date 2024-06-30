@@ -10,4 +10,3 @@ spellIndexes.results.map((index) =>
 )
 );
 }
-
