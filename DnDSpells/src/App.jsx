@@ -6,6 +6,9 @@ import "./App.css";
 export default function App() {
   const [spells, setSpells] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedLevel, setSelectedLevel] = useState("");
+  const [selectedSchool, setSelectedSchool] = useState("");
+
 
   useEffect(() => {
     getAllSpells().then((data) => {
@@ -16,10 +19,23 @@ export default function App() {
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
   };
+  const handleLevelChange = (event) => {
+    setSelectedLevel(event.target.value);
+  };
 
-  const filteredSpells = spells.filter((spell) =>
-    spell.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const handleSchoolChange = (event) => {
+    setSelectedSchool(event.target.value);
+  };
+
+  const filteredSpells = spells.filter((spell) => {
+    const matchesLevel =
+      selectedLevel === "" || spell.level === parseInt(selectedLevel);
+    const matchesSchool =
+      selectedSchool === "" || spell.school.name === selectedSchool;
+    const matchesName =
+      spell.name.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesLevel && matchesSchool && matchesName;
+  });
 
   return (
     <div className="App">
@@ -29,6 +45,20 @@ export default function App() {
         value={searchQuery}
         onChange={handleSearch}
       />
+      <select value={selectedLevel} onChange={handleLevelChange}>
+        <option value="">All Levels</option>
+        <option value="0">Cantrip</option>
+        <option value="1">1st Level</option>
+        <option value="2">2nd Level</option>
+        {/* Add more options for other levels */}
+      </select>
+      <select value={selectedSchool} onChange={handleSchoolChange}>
+        <option value="">All Schools</option>
+        <option value="Abjuration">Abjuration</option>
+        <option value="Conjuration">Conjuration</option>
+        <option value="Divination">Divination</option>
+        {/* Add more options for other schools */}
+      </select>
       <ul className="spell-list">
         {filteredSpells.map((spell) => (
           <SpellCard key={spell.index} spell={spell} />
