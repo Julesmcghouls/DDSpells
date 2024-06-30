@@ -1,18 +1,21 @@
 import { useEffect, useState } from "react";
 import { getAllSpells } from "./Api";
 import SpellCard from "./SpellCard";
+import loadingGif from "./loading.gif";
 import "./App.css";
 
 export default function App() {
-  const [spells, setSpells] = useState([]);
+  const [spells, setSpells] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedLevel, setSelectedLevel] = useState("");
   const [selectedSchool, setSelectedSchool] = useState("");
-
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     getAllSpells().then((data) => {
       setSpells(data);
+      setLoading(false);
     });
   }, []);
 
@@ -27,43 +30,51 @@ export default function App() {
     setSelectedSchool(event.target.value);
   };
 
-  const filteredSpells = spells.filter((spell) => {
-    const matchesLevel =
-      selectedLevel === "" || spell.level === parseInt(selectedLevel);
-    const matchesSchool =
-      selectedSchool === "" || spell.school.name === selectedSchool;
-    const matchesName =
-      spell.name.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesLevel && matchesSchool && matchesName;
-  });
+  const filteredSpells = spells
+    ? spells.filter((spell) => {
+        const matchesLevel =
+          selectedLevel === "" || spell.level === parseInt(selectedLevel);
+        const matchesSchool =
+          selectedSchool === "" || spell.school.name === selectedSchool;
+        const matchesName =
+          spell.name.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesLevel && matchesSchool && matchesName;
+      })
+    : [];
 
   return (
     <div className="App">
-      <input
-        type="text"
-        placeholder="Search spells..."
-        value={searchQuery}
-        onChange={handleSearch}
-      />
-      <select value={selectedLevel} onChange={handleLevelChange}>
-        <option value="">All Levels</option>
-        <option value="0">Cantrip</option>
-        <option value="1">1st Level</option>
-        <option value="2">2nd Level</option>
-        {/* Add more options for other levels */}
-      </select>
-      <select value={selectedSchool} onChange={handleSchoolChange}>
-        <option value="">All Schools</option>
-        <option value="Abjuration">Abjuration</option>
-        <option value="Conjuration">Conjuration</option>
-        <option value="Divination">Divination</option>
-        {/* Add more options for other schools */}
-      </select>
-      <ul className="spell-list">
-        {filteredSpells.map((spell) => (
-          <SpellCard key={spell.index} spell={spell} />
-        ))}
-      </ul>
+      {loading ? ( // Conditionally render loading GIF
+        <img src={loadingGif} alt="Loading..." />
+      ) : (
+        <>
+          <input
+            type="text"
+            placeholder="Search spells..."
+            value={searchQuery}
+            onChange={handleSearch}
+          />
+          <select value={selectedLevel} onChange={handleLevelChange}>
+            <option value="">All Levels</option>
+            <option value="0">Cantrip</option>
+            <option value="1">1st Level</option>
+            <option value="2">2nd Level</option>
+            {/* Add more options for other levels */}
+          </select>
+          <select value={selectedSchool} onChange={handleSchoolChange}>
+            <option value="">All Schools</option>
+            <option value="Abjuration">Abjuration</option>
+            <option value="Conjuration">Conjuration</option>
+            <option value="Divination">Divination</option>
+            {/* Add more options for other schools */}
+          </select>
+          <ul className="spell-list">
+            {filteredSpells.map((spell) => (
+              <SpellCard key={spell.index} spell={spell} />
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
 }
