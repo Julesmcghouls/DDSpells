@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllSpells } from "./api";
+import { getAllSpells } from "./Api";
 import SpellCard from "./SpellCard";
 import "./App.css";
 
