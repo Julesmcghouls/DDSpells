@@ -5,17 +5,18 @@ import loadingGif from "./loading.gif";
 import "./App.css";
 
 export default function App() {
-  const [spells, setSpells] = useState(null);
+  const [spells, setSpells] = useState(() => {
+    const savedSpells = localStorage.getItem("spells");
+    return savedSpells ? JSON.parse(savedSpells) : null;
+  });
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedLevel, setSelectedLevel] = useState("");
   const [selectedSchool, setSelectedSchool] = useState("");
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
-    getAllSpells().then((data) => {
-      setSpells(data);
-      setLoading(false);
+    getAllSpells().then((spells) => {
+      setSpells(spells);
+      localStorage.setItem("spells", JSON.stringify(spells));
     });
   }, []);
 
@@ -44,9 +45,7 @@ export default function App() {
 
   return (
     <div className="App">
-      {loading ? ( // Conditionally render loading GIF
-        <img src={loadingGif} alt="Loading..." />
-      ) : (
+      {spells ? (
         <>
           <input
             type="text"
@@ -74,7 +73,10 @@ export default function App() {
             ))}
           </ul>
         </>
+      ) : (
+        <img src={loadingGif} alt="Loading..." />
       )}
     </div>
   );
 }
+
