@@ -23,6 +23,7 @@ export default function App() {
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
   };
+
   const handleLevelChange = (event) => {
     setSelectedLevel(event.target.value);
   };
@@ -58,14 +59,12 @@ export default function App() {
             <option value="0">Cantrip</option>
             <option value="1">1st Level</option>
             <option value="2">2nd Level</option>
-            {/* Add more options for other levels */}
           </select>
           <select value={selectedSchool} onChange={handleSchoolChange}>
             <option value="">All Schools</option>
             <option value="Abjuration">Abjuration</option>
             <option value="Conjuration">Conjuration</option>
             <option value="Divination">Divination</option>
-            {/* Add more options for other schools */}
           </select>
           <ul className="spell-list">
             {filteredSpells.map((spell) => (
@@ -74,9 +73,10 @@ export default function App() {
           </ul>
         </>
       ) : (
-        <img src={loadingGif} alt="Loading..." />
+        <div className="loading-container">
+          <img src={loadingGif} alt="Loading..." />
+        </div>
       )}
     </div>
   );
 }
-

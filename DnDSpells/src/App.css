@@ -57,3 +57,25 @@ body {
   padding: 8px;
   font-size: 0.75rem;
 }
+.like-info {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.like-button img {
+  width: 24px;
+  cursor: pointer;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw; 
+  background-color: #000000;
+}
+
+.loading-container img {
+  width: 150px;
+}

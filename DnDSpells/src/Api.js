@@ -10,3 +10,6 @@ spellIndexes.results.map((index) =>
 )
 );
 }
+
+//console.log(await getAllSpells())
+
