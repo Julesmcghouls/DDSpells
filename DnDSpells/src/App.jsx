@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getAllSpells } from "./Api";
-import SpellCard from "./SpellCard";
+import { getAllSpells } from "./API";
+import SpellCard from "./components/SpellCard";
 import loadingGif from "./loading.gif";
 import "./App.css";
 
